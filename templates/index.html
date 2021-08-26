@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+  </head>
+  <body>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+
+
+	<div class="jumbotron text-center">
+		<h1>Mage Game ops console</h1>
+		<p>Operational tasks and logs for Mage Game</p>
+	</div>
+
+	<br/>
+
+	<div class="container">
+		<div class="row">
+			<form method="post">
+		        <h1>Update Github branch</h1>
+		        <input type="submit" id="update_main" name="action" value="Main">
+		        </form>
+		</div>
+		<div class="row">
+			<form method="post">
+			<h1>Restart Services</h1>
+		        <!--<input type="submit" id="restart_service" name="action" value="Restart Service">-->
+		        <input type="submit" id="restart_magegame" name="action" value="magegame.service">
+		        <input type="submit" id="restart_service" name="action" value="magegame-updater.service">
+			</form>
+		</div>
+	</div>
+	<div class="container">
+		<h1>Logs</h1>
+		<button type="button" class="btn btn-primary" onClick="window.location.href='/'">Refresh Logs</button>
+	</div>
+
+	<br/>
+
+	<div class="container">
+		<div class="row">
+			<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#magegameservicelogs" aria-expanded="false" aria-controls="collapseExample">
+			magegame.service logs
+			</button>
+			<div class="collapse.show" id="magegameservicelogs">
+			<div class="card card-body">
+			<pre>{{ magegamelogs }}</pre>
+			</div>
+			</div>
+		</div>
+		<div class="row">
+			<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#magegameserviceupdaterlogs" aria-expanded="false" aria-controls="collapseExample">
+			magegame-updater.service logs
+			</button>
+			<div class="collapse.show" id="magegameserviceupdaterlogs">
+			<div class="card card-body">
+			<pre>{{ magegameupdaterlogs }}</pre>
+			</div>
+			</div>
+		</div>
+	</div>
+
+  </body>
+</html>
