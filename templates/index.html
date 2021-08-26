@@ -36,7 +36,10 @@
 	</div>
 	<div class="container">
 		<h1>Logs</h1>
-		<button type="button" class="btn btn-primary" onClick="window.location.href='/'">Refresh Logs</button>
+		<button type="button" class="btn btn-primary"
+      param-endpoint="/api/service?s=magegame.service"
+      param-id="magegameservicelogs"
+      onClick="buttonClick(this, '/api/service?s=magegame.service', 'magegameservicelogs');">Refresh Logs</button>
 	</div>
 
 	<br/>
@@ -46,9 +49,9 @@
 			<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#magegameservicelogs" aria-expanded="false" aria-controls="collapseExample">
 			magegame.service logs
 			</button>
-			<div class="collapse.show" id="magegameservicelogs">
+			<div class="collapse.show">
 			<div class="card card-body">
-			<pre>{{ magegamelogs }}</pre>
+			<pre id="magegameservicelogs">{{ magegamelogs }}</pre>
 			</div>
 			</div>
 		</div>
@@ -58,11 +61,64 @@
 			</button>
 			<div class="collapse.show" id="magegameserviceupdaterlogs">
 			<div class="card card-body">
-			<pre>{{ magegameupdaterlogs }}</pre>
+			<pre id="magegameopsservicelogs">{{ magegameupdaterlogs }}</pre>
 			</div>
 			</div>
 		</div>
 	</div>
+
+  <script type="text/javascript">
+
+    //////////////////////
+    // Helper functions //
+    //////////////////////
+    /* Function: sendXmlHttpRequest
+    * Parameters:
+    *   string - endpoint - URL to query (e.g. '/api/service?s=magegame.service')
+    *   string - elementID - HTML element ID to update when we get a reply (e.g. 'magegameservicelogs')
+    */
+    function sendXmlHttpRequest(endpoint, elementID) {
+      let tmpRequest = new XMLHttpRequest();
+      tmpRequest.open('GET', endpoint);
+      tmpRequest.onload = () => {
+        let tmpResponse = tmpRequest.responseText;
+        updateInnerHtml(tmpResponse, elementID)
+        console.log("Response: " + tmpResponse)
+      };
+      tmpRequest.send();
+    }
+
+    function updateInnerHtml(tmpResponse, elementID) {
+      document.getElementById(elementID).innerHTML = tmpResponse;
+    }
+
+    /* Function: buttonClick
+    * Parameters:
+    *   button - btn - the button that was clicked
+    *   string - endpoint - URL to query (e.g. '/api/service?s=magegame.service')
+    *   string - elementID - HTML element ID to update when we get a reply (e.g. 'magegameservicelogs')
+    */
+    function buttonClick(btn, endpoint, elementID) {
+      btn.disabled = true;
+      sendXmlHttpRequest(endpoint, elementID)
+      btn.disabled = false;
+    }
+
+
+    ////////////////////////
+    // Start AJAX content //
+    ////////////////////////
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log("DOMContentLoaded")
+
+      // magegame.service info
+      sendXmlHttpRequest('/api/service?s=magegame.service', 'magegameservicelogs')
+
+      // magegame-ops.service info
+      sendXmlHttpRequest('/api/service?s=magegame-ops.service', 'magegameopsservicelogs')
+    });
+  </script>
+
 
   </body>
 </html>

@@ -3,6 +3,7 @@ import test
 import git
 import logging
 import os
+import random
 
 ### setup logging...
 # create logger with 'spam_application'
@@ -35,7 +36,23 @@ Make everything ajax calls
 app = Flask(__name__)
 local_files = "/opt/magegame-updater/"
 index = local_files + "index.html"
+counter = 0
 # End global variables
+
+@app.route('/api/service',  methods=["GET"])
+def mageGameService():
+    service = request.args.get('s')
+    if service == "magegame.service":
+        tmpFile = str(random.randint(0,99))
+        os.system('systemctl status magegame.service > ' + tmpFile)
+        f = open(tmpFile, "r")
+        magegamelogs = f.read()
+        os.remove(tmpFile)
+        return magegamelogs
+    elif service == "magegame-ops.service":
+        return "Client sent: magegame-ops.service"
+    else:
+        return "not a valid service: "
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -105,7 +122,7 @@ def index():
         magegameversion = "?"
 
     # Return them to index.html
-    return render_template('index.html', magegameversion=magegameversion, magegamelogs=magegamelogs, magegameupdaterlogs=magegameupdaterlogs)
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
