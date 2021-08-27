@@ -121,8 +121,11 @@ def home():
 
 @app.route('/update', methods=['GET', 'POST'])
 def update():
-    if 'Main' in d:
-        updateMainBranch()
+    # if they clicked the "Main" button, update the "/opt/magegame" branch
+    if request.method == 'POST':
+        if 'Main' in d:
+            updateMainBranch()
+
     return render_template('update.html')
 
 
