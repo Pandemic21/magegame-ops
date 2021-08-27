@@ -31,28 +31,32 @@
 
 
 
-<p>
-Do stuff on the left.
-</p>
-
-<p>
-<a href="http://game.pandemicdev.com:8081/" target="_blank">Launch the game</a>
-</p>
-
-
+<button type="button" class="btn btn-primary" onclick="updateTableButton(this)">Refresh Table</button>
 
 
 
 <script>
-// get the Mage Game version
-sendXmlHttpRequest('/api/version/magegame', 'home_magegameversion')
+function updateTableButton(btn) {
+  btn.value = "<span class="sr-only">Loading...</span>"
+  btn.disabled = true;
+  // get the Mage Game version
+  sendXmlHttpRequest('/api/version/magegame', 'home_magegameversion')
+  // get the Ops Console version
+  sendXmlHttpRequest('/api/version/opsconsole', 'home_opsconsoleversion')
+  // get the Mage Game version
+  sendXmlHttpRequest('/api/serviceCheck?s=magegame.service', 'home_magegamerunning')
+  // get the Ops Console version
+  sendXmlHttpRequest('/api/serviceCheck?s=magegame-ops.service', 'home_opsconsolerunning')
+  btn.disabled = false;
+}
 
+
+// Initial table update when the user first lands on the page
+sendXmlHttpRequest('/api/version/magegame', 'home_magegameversion')
 // get the Ops Console version
 sendXmlHttpRequest('/api/version/opsconsole', 'home_opsconsoleversion')
-
 // get the Mage Game version
 sendXmlHttpRequest('/api/serviceCheck?s=magegame.service', 'home_magegamerunning')
-
 // get the Ops Console version
 sendXmlHttpRequest('/api/serviceCheck?s=magegame-ops.service', 'home_opsconsolerunning')
 </script>
