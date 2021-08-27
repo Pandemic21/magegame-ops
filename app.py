@@ -1,11 +1,12 @@
 from flask import Flask, render_template, jsonify, request
 from flask import url_for
+from subprocess import check_output
 import git
 import logging
 import os
 import random
 import json
-import subprocess
+
 
 ### setup logging...
 # create logger with 'spam_application'
@@ -191,13 +192,13 @@ def apiServiceDetails():
 
     # magegame.service
     if service == "magegame.service":
-        result = subprocess.run(['systemctl', 'status', 'magegame.service'], stdout=subprocess.PIPE)
+        result = check_output(['systemctl', 'status', 'magegame.service']).decode("utf-8")
 
     # magegame-ops.service
     elif service == "magegame-ops.service":
-        result = subprocess.run(['systemctl', 'status', 'magegame-ops.service'], stdout=subprocess.PIPE)
+        result = check_output(['systemctl', 'status', 'magegame-ops.service']).decode("utf-8")
 
-    return str(result.stdout)
+    return str(result)
 
 
 
