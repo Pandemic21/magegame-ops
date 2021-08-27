@@ -5,6 +5,7 @@ import logging
 import os
 import random
 import json
+import subprocess
 
 ### setup logging...
 # create logger with 'spam_application'
@@ -141,31 +142,11 @@ def services():
 # API Routes #
 ##############
 
-# Route: /api/service
-
-@app.route('/api/service',  methods=["GET"])
-def mageGameService():
-    service = request.args.get('s')
-    if service == "magegame.service":
-        tmpFile = str(random.randint(0,99))
-        os.system('systemctl status magegame.service > ' + tmpFile)
-        f = open(tmpFile, "r")
-        magegamelogs = f.read()
-        os.remove(tmpFile)
-        return magegamelogs
-    elif service == "magegame-ops.service":
-        return "Client sent: magegame-ops.service"
-    else:
-        return "not a valid service: "
-
-
 # Route: /api/version/magegame
 
 @app.route('/api/version/magegame', methods=["GET"])
 def apiGetMageGameVersion():
     program = request.args.get('p')
-
-    #f = open("/etc/magegame/package.json", "r")
     f = open("../magegame/package.json", "r")
     return json.load(f)['version']
 
@@ -177,14 +158,12 @@ def apiGetOpsConsoleVersion():
     return OPS_CONSOLE_VERSION
 
 
-# Route: /api/service/<str:service>
+# Route: /api/serviceCheck
 
 @app.route('/api/serviceCheck',  methods=["GET"])
-def apiGetAnyService():
+def apiServiceCheck():
     service = request.args.get('s')
     stat = -999
-
-    print(service)
 
     # magegame.service
     if service == "magegame.service":
@@ -195,13 +174,30 @@ def apiGetAnyService():
         stat = os.system('systemctl status magegame-ops.service')
 
     # Parse what "stat" means
-    print(stat)
     if stat == 0:
         return '<span class="text-success">Running</span>'
     elif stat == -999:
         return "Service not found"
     else:
         return '<span class="text-danger">NOT running</span>'
+
+
+# Route: /api/serviceDetails
+
+@app.route('/api/serviceDetails',  methods=["GET"])
+def apiServiceDetails():
+    service = request.args.get('s')
+    stat = -999
+
+    # magegame.service
+    if service == "magegame.service":
+        result = subprocess.run(['systemctl', 'status', 'magegame.service'], stdout=subprocess.PIPE)
+
+    # magegame-ops.service
+    elif service == "magegame-ops.service":
+        result = subprocess.run(['systemctl', 'status', 'magegame-ops.service'], stdout=subprocess.PIPE)
+
+    return str(result.stdout)
 
 
 

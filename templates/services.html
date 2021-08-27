@@ -8,4 +8,22 @@
       <input type="submit" id="restart_service" name="action" value="magegame-updater.service">
 </form>
 
+<h1>magegame.service</h1>
+<pre id="services_magegamedetails"></pre>
+
+<h1>magegame-ops.service</h1>
+<pre id="services_magegameopsdetails"></pre>
+
+
+
+
+
+<script>
+// get the Mage Game service details
+sendXmlHttpRequest('/api/serviceDetails?s=magegame.service', 'services_magegamedetails')
+
+// get the Mage Game service details
+sendXmlHttpRequest('/api/serviceDetails?s=magegame-ops.service', 'services_magegamedetails')
+</script>
+
 {% endblock %}
