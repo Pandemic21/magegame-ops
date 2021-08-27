@@ -30,8 +30,7 @@ logger.addHandler(ch)
 # TODO:
 '''
 Add a button to reload daemons
-Add a button to launch the game in a new window
-Make everything ajax calls
+Fix the update (method not allowed)
 '''
 
 
@@ -120,8 +119,10 @@ def home():
 
 # Route: /update
 
-@app.route('/update', methods=['GET'])
+@app.route('/update', methods=['GET', 'POST'])
 def update():
+    if 'Main' in d:
+        updateMainBranch()
     return render_template('update.html')
 
 
@@ -218,7 +219,7 @@ def updateMainBranch():
     logger.info("Stopped.")
     logger.info("Pulling new version...")
     os.system('git -C /opt/magegame/ fetch --all')
-    os.system('git -C /opt/magegame/ reset --hard orgin/main')
+    os.system('git -C /opt/magegame/ reset --hard main')
     os.system('git -C /opt/magegame/ pull')
     logger.info("Pulled.")
     logger.info("Running npm install...")
