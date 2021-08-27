@@ -46,23 +46,6 @@
     sendXmlHttpRequest(endpoint, elementID)
     btn.disabled = false;
   }
-
-
-  ////////////////////////
-  // Start AJAX content //
-  ////////////////////////
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOMContentLoaded")
-
-    // magegame.service info
-    sendXmlHttpRequest('/api/service?s=magegame.service', 'magegameservicelogs')
-
-    // magegame-ops.service info
-    sendXmlHttpRequest('/api/service?s=magegame-ops.service', 'magegameopsservicelogs')
-
-    // get the Ops Console version
-    sendXmlHttpRequest('/api/version/opsconsole', 'opsconsoleversion')
-  });
 </script>
 
 

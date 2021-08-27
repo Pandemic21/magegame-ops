@@ -17,13 +17,13 @@
   <tbody>
     <tr>
       <th scope="row">Mage Game</th>
-      <td id="home_magegameversion">N/A</td>
-      <td id="home_magegamerunning">N/A</td>
+      <td id="home_magegameversion"><div class="spinner-border spinner-border-sm" role="status"><span class="sr-only"></span></div>/td>
+      <td id="home_magegamerunning"><div class="spinner-border spinner-border-sm" role="status"><span class="sr-only"></span></div></td>
     </tr>
     <tr>
       <th scope="row">Ops Console</th>
-      <td id="home_opsconsoleversion">N/A</td>
-      <td id="home_opsconsolerunning">N/A</td>
+      <td id="home_opsconsoleversion"><div class="spinner-border spinner-border-sm" role="status"><span class="sr-only"></span></div></td>
+      <td id="home_opsconsolerunning"><div class="spinner-border spinner-border-sm" role="status"><span class="sr-only"></span></div></td>
     </tr>
   </tbody>
 </table>
@@ -37,8 +37,17 @@
 
 <script>
 function updateTableButton(btn) {
-  btn.value = "<span class="sr-only">Loading...</span>"
+  spinnerHTML = '<div class="spinner-border spinner-border-sm" role="status"><span class="sr-only"></span></div>'
   btn.disabled = true;
+
+  // set all the table elements to spinner icon while we get data
+  document.getElementById("home_magegameversion").innerHTML = spinnerHTML;
+  document.getElementById("home_magegamerunning").innerHTML = spinnerHTML;
+  document.getElementById("home_opsconsoleversion").innerHTML = spinnerHTML;
+  document.getElementById("home_opsconsoleversion").innerHTML = spinnerHTML;
+
+
+  // get all the data
   // get the Mage Game version
   sendXmlHttpRequest('/api/version/magegame', 'home_magegameversion')
   // get the Ops Console version
