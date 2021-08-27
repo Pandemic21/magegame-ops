@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- CSS only Boostrap v5  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href= "{{ url_for('static',filename='sidebar.css') }}" rel="stylesheet" type= "text/css">
+
+  </head>
+  <body>
+<!-- JavaScript only Boostrap v5 Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+  //////////////////////
+  // Helper functions //
+  //////////////////////
+  /* Function: sendXmlHttpRequest
+  * Parameters:
+  *   string - endpoint - URL to query (e.g. '/api/service?s=magegame.service')
+  *   string - elementID - HTML element ID to update when we get a reply (e.g. 'magegameservicelogs')
+  */
+  function sendXmlHttpRequest(endpoint, elementID) {
+    let tmpRequest = new XMLHttpRequest();
+    tmpRequest.open('GET', endpoint);
+    tmpRequest.onload = () => {
+      let tmpResponse = tmpRequest.responseText;
+      updateInnerHtml(tmpResponse, elementID)
+      console.log("Response: " + tmpResponse)
+    };
+    tmpRequest.send();
+  }
+
+  function updateInnerHtml(tmpResponse, elementID) {
+    document.getElementById(elementID).innerHTML = tmpResponse;
+  }
+
+  /* Function: buttonClick
+  * Parameters:
+  *   button - btn - the button that was clicked
+  *   string - endpoint - URL to query (e.g. '/api/service?s=magegame.service')
+  *   string - elementID - HTML element ID to update when we get a reply (e.g. 'magegameservicelogs')
+  */
+  function buttonClick(btn, endpoint, elementID) {
+    btn.disabled = true;
+    sendXmlHttpRequest(endpoint, elementID)
+    btn.disabled = false;
+  }
+
+
+  ////////////////////////
+  // Start AJAX content //
+  ////////////////////////
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOMContentLoaded")
+
+    // magegame.service info
+    sendXmlHttpRequest('/api/service?s=magegame.service', 'magegameservicelogs')
+
+    // magegame-ops.service info
+    sendXmlHttpRequest('/api/service?s=magegame-ops.service', 'magegameopsservicelogs')
+
+    // get the Ops Console version
+    sendXmlHttpRequest('/api/version/opsconsole', 'opsconsoleversion')
+  });
+</script>
+
+
+<!--
+Sidebar source / reference:
+https://bbbootstrap.com/snippets/simple-sidebar-navigation-menu-pure-html-and-css-35394616
+-->
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>Mage Game Ops Console</h2>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/update">Update</a></li>
+            <li><a href="/console">Console</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="#c">Logs</a></li>
+        </ul>
+        <div class="social_media"> <a href="#" id="opsconsoleversion">v0.0.1</a></div>
+    </div>
+    <div class="main_content">
+        <div class="header">{{ title }}</div>
+        <div class="info">
+          {% block content %}
+          {% endblock %}
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--
+	<div class="jumbotron text-center">
+		<h1>Mage Game ops console</h1>
+		<p>Operational tasks and logs for Mage Game</p>
+	</div>
+-->
+	<br/>
+
+
+  </body>
+</html>

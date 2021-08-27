@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="text-danger">WARNING</h1>
+<p>This is dangerous, the commans are just straight executed on the box. Be careful.</p>
+
+<form action="/action_page.php">
+ <label for="fname">Command:</label>
+ <input type="text" id="fname" name="fname"><br><br>
+ <input type="submit" value="Submit">
+</form>
+
+<p class="text-warning bg-dark">This hasn't been implemented yet.</p>
+
+{% endblock %}

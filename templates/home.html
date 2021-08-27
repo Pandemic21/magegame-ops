@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Mage Game Ops Console</h1>
+
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">App</th>
+      <th scope="col">Version</th>
+      <th scope="col">Running?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Mage Game</th>
+      <td id="home_magegameversion">N/A</td>
+      <td id="home_magegamerunning">N/A</td>
+    </tr>
+    <tr>
+      <th scope="row">Ops Console</th>
+      <td id="home_opsconsoleversion">N/A</td>
+      <td id="home_opsconsolerunning">N/A</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<p>
+Do stuff on the left.
+</p>
+
+<p>
+<a href="http://game.pandemicdev.com:8081/" target="_blank">Launch the game</a>
+</p>
+
+
+
+
+
+<script>
+// get the Mage Game version
+sendXmlHttpRequest('/api/version/magegame', 'home_magegameversion')
+
+// get the Ops Console version
+sendXmlHttpRequest('/api/version/opsconsole', 'home_opsconsoleversion')
+
+// get the Mage Game version
+sendXmlHttpRequest('/api/serviceCheck?s=magegame.service', 'home_magegamerunning')
+
+// get the Ops Console version
+sendXmlHttpRequest('/api/serviceCheck?s=magegame-ops.service', 'home_opsconsolerunning')
+</script>
+
+{% endblock %}

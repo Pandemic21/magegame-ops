@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post">
+<h1>Restart Services</h1>
+      <!--<input type="submit" id="restart_service" name="action" value="Restart Service">-->
+      <input type="submit" id="restart_magegame" name="action" value="magegame.service">
+      <input type="submit" id="restart_service" name="action" value="magegame-updater.service">
+</form>
+
+{% endblock %}
