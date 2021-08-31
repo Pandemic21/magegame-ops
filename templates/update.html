@@ -12,6 +12,8 @@
 function updateService(btn, service) {
   btn.disabled = true;
 
+  console.log("Pressed button")
+
   // tell app.py to update the github branch
   sendXmlHttpRequest('/api/serviceUpdate?s=magegame.service', 'home_magegameversion')
 

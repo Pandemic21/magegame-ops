@@ -205,7 +205,7 @@ def apiServiceDetails():
     return str(result)
 
 
-# Route: /api/serviceRestart
+# Route: /api/serviceUpdate
 
 @app.route('/api/serviceUpdate', methods=["GET"])
 def apiServiceUpdate():
