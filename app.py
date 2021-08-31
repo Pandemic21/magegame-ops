@@ -225,12 +225,12 @@ def apiServiceRestart():
 
     # magegame.service
     if service == "magegame.service":
-        os.system('systemctl restart magegame-ops.service')
+        os.system('sudo systemctl restart magegame-ops.service')
         result = check_output(['systemctl', 'status', 'magegame.service']).decode("utf-8")
 
     # magegame-ops.service
     elif service == "magegame-ops.service":
-        os.system('systemctl restart magegame-ops.service')
+        os.system('sudo systemctl restart magegame-ops.service')
         result = check_output(['systemctl', 'status', 'magegame-ops.service']).decode("utf-8")
 
     return str(result)
