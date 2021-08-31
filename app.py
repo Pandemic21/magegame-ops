@@ -216,6 +216,20 @@ def apiServiceUpdate():
         updateMainBranch()
 
 
+# Route: /api/serviceRestart
+
+@app.route('/api/serviceRestart', methods=["GET"])
+def apiServiceUpdate():
+    service = request.args.get('s')
+
+    # magegame.service
+    if service == "magegame.service":
+        os.system('systemctl restart magegame-ops.service')
+
+    # magegame-ops.service
+    elif service == "magegame-ops.service":
+        os.system('systemctl restart magegame-ops.service')
+
 
 
 
