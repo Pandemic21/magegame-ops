@@ -5,8 +5,8 @@
 <h1>Restart Services</h1>
       <!--<input type="submit" id="restart_service" name="action" value="Restart Service">-->
 
-      <button type="button" class="btn btn-primary" onclick="restartService(this, 'magegame.service')">magegame.service</button>
-      <button type="button" class="btn btn-primary" onclick="restartService(this, 'magegame-ops.service')">magegame-ops.service</button>
+      <button type="button" class="btn btn-primary" onclick="restartService(this, 'magegame.service', 'services_magegamedetails')">magegame.service</button>
+      <button type="button" class="btn btn-primary" onclick="restartService(this, 'magegame-ops.service', 'services_magegameopsdetails')">magegame-ops.service</button>
 
 </form>
 
@@ -29,12 +29,12 @@ sendXmlHttpRequest('/api/serviceDetails?s=magegame-ops.service', 'services_mageg
 
 
 
-function restartService(btn, service) {
+function restartService(btn, service, elementID) {
   btn.disabled = true;
-  console.log("Sending restart service request: " + service)
+  //console.log("Sending restart service request: " + service)
 
   // tell app.py to update the github branch
-  sendXmlHttpRequest('/api/restartService?s=' + service, '')
+  sendXmlHttpRequest('/api/restartService?s=' + service, elementID)
 
   btn.disabled = false;
 }
