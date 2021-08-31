@@ -35,7 +35,7 @@ Fix the update (method not allowed)
 
 
 # Global variables
-OPS_CONSOLE_VERSION = "0.0.1"
+OPS_CONSOLE_VERSION = "0.1.0"
 local_files = "/opt/magegame-updater/"
 index = local_files + "index.html"
 static_folder_root = "./static"
