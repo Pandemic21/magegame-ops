@@ -34,7 +34,7 @@ function restartService(btn, service) {
   console.log("Sending restart service request: " + service)
 
   // tell app.py to update the github branch
-  sendXmlHttpRequest('/api/serviceUpdate?s=magegame.service', 'home_magegameversion')
+  sendXmlHttpRequest('/api/restartService?s=' + service, '')
 
   btn.disabled = false;
 }

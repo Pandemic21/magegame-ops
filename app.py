@@ -219,7 +219,7 @@ def apiServiceUpdate():
 # Route: /api/serviceRestart
 
 @app.route('/api/serviceRestart', methods=["GET"])
-def apiServiceUpdate():
+def apiServiceRestart():
     service = request.args.get('s')
 
     # magegame.service
