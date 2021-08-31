@@ -165,7 +165,7 @@ def apiGetOpsConsoleVersion():
 
 # Route: /api/serviceCheck
 
-@app.route('/api/serviceCheck',  methods=["GET"])
+@app.route('/api/serviceCheck', methods=["GET"])
 def apiServiceCheck():
     service = request.args.get('s')
     stat = -999
@@ -205,6 +205,15 @@ def apiServiceDetails():
     return str(result)
 
 
+# Route: /api/serviceRestart
+
+@app.route('/api/serviceUpdate', methods=["GET"])
+def apiServiceUpdate():
+    service = request.args.get('s')
+
+    # magegame.service
+    if service == "magegame.service":
+        updateMainBranch()
 
 
 

@@ -3,7 +3,23 @@
 
 <form method="post">
       <h1>Update Github branch</h1>
-      <input type="submit" id="update_main" name="action" value="Main">
+      <button type="button" class="btn btn-primary" onclick="serviceUpdate(this, 'magegame')">Main</button>
 </form>
+
+
+
+<script>
+function updateService(btn, service) {
+  btn.disabled = true;
+
+  // tell app.py to update the github branch
+  sendXmlHttpRequest('/api/serviceUpdate?s=magegame.service', 'home_magegameversion')
+
+  btn.disabled = false;
+}
+
+</script>
+
+
 
 {% endblock %}
